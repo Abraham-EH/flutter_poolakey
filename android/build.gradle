@@ -1,0 +1,79 @@
+group 'ir.cafebazaar.flutter_poolakey'
+version '2.2.0'
+
+buildscript {
+    ext.kotlin_version = '1.8.0'
+    ext.poolakey_version = '2.2.0'
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+        google()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven {
+            url "https://maven.google.com/"
+            name "Google"
+        }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.7.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+        google()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven {
+            url "https://maven.google.com/"
+            name "Google"
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    namespace 'ir.cafebazaar.flutter_poolakey'
+    compileSdkVersion 33
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        minSdkVersion 16
+        versionCode 200200
+        versionName "2.2.0"
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "String", "POOLAKEY_VERSION", '"' + poolakey_version + '"'
+        }
+        release {
+            buildConfigField "String", "POOLAKEY_VERSION", '"' + poolakey_version + '"'
+        }
+    }
+
+    dependencies {
+        implementation "com.github.cafebazaar.Poolakey:poolakey:$poolakey_version"
+    }
+}
